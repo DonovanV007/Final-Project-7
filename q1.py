@@ -9,7 +9,7 @@ app = marimo.App(width="medium")
 @app.cell
 def _():
     import marimo as mo
-
+    
     import plotly.express as px
     import polars as pl
     return pl, px
@@ -22,7 +22,7 @@ def _():
 
 @app.cell
 def _(pl):
-    # Loading in the data
+    
     NYC = pl.read_csv("data/NYC_Collisions.csv",null_values="NA")
     NYC
     return (NYC,)
@@ -37,10 +37,10 @@ def _(NYC, pl):
         .alias("Date_clean")
     )
 
-    # Drop bad rows 
+     
     NYCM_clean = NYCM.filter(pl.col("Date_clean").is_not_null())
 
-    # Extract month and count
+    
     month_counts = (
         NYCM_clean.with_columns(pl.col("Date_clean").dt.strftime("%Y-%m").alias("Month"))
         # .dt.strftime came from "https://docs.pola.rs/api/python/stable/reference/series/api/polars.Series.dt.strftime.html"
@@ -60,7 +60,7 @@ def _(month_counts, px):
     months = month_counts["Month"].to_list()
     percent=month_counts["Percent"].to_list()
 
-    # Plot using Plotly Express directly
+    
     fig = px.bar(
         x=months,
         y=percent,
