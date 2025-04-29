@@ -346,7 +346,7 @@ wheels = [
 ]
 
 [[package]]
-name = "final-project"
+name = "final-project-7"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
